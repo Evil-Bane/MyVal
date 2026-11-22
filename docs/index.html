@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyVal — Native Valorant Telemetry Companion for Android</title>
+  <meta name="description" content="Pitch-black OLED Valorant companion for Android powered by a native Rust telemetry engine. Live Match scouting, party stack detection, equipped skins, 2D replay, daily shop, and remote arsenal." />
+  <style>
+    :root {
+      --bg: #040507;
+      --card: #0a0d12;
+      --elevated: #131822;
+      --stroke: #202a38;
+      --red: #ff4655;
+      --cyan: #00e5cc;
+      --gold: #f5c451;
+      --green: #22c55e;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --dim: #64748b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at 50% 0%, #19090e 0%, var(--bg) 52%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 28px 20px 64px; }
+    nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-bottom: 24px; border-bottom: 1px solid var(--stroke);
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 900; letter-spacing: 2.5px; font-size: 19px; color: var(--red); text-decoration: none; }
+    .brand svg { width: 34px; height: 34px; border-radius: 8px; }
+    .nav-links { display: flex; gap: 18px; align-items: center; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 13.5px; font-weight: 600; transition: color .15s; }
+    .nav-links a:hover { color: var(--cyan); }
+
+    .hero { text-align: center; padding: 62px 12px 46px; }
+    .pill-row { display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 20px; }
+    .pill {
+      font-size: 11px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 6px; border: 1px solid var(--stroke); background: var(--elevated);
+    }
+    .pill.cyan { color: var(--cyan); border-color: rgba(0,229,204,.4); background: rgba(0,229,204,.1); }
+    .pill.gold { color: var(--gold); border-color: rgba(245,196,81,.4); background: rgba(245,196,81,.1); }
+    .pill.green { color: var(--green); border-color: rgba(34,197,94,.4); background: rgba(34,197,94,.1); }
+
+    h1 { font-size: clamp(32px, 5.5vw, 54px); font-weight: 900; letter-spacing: -0.02em; line-height: 1.08; margin-bottom: 16px; }
+    h1 span { color: var(--red); }
+    .subtitle { max-width: 680px; margin: 0 auto 30px; color: var(--muted); font-size: 16.5px; }
+
+    .cta-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 14px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px; padding: 13px 24px;
+      border-radius: 9px; font-weight: 800; font-size: 15px; text-decoration: none; transition: transform .15s, opacity .15s;
+    }
+    .btn:hover { transform: translateY(-1px); opacity: .95; }
+    .btn-primary { background: var(--red); color: #fff; box-shadow: 0 10px 30px rgba(255,70,85,.28); }
+    .btn-secondary { background: var(--elevated); color: var(--text); border: 1px solid var(--stroke); }
+    .meta-note { font-size: 12.5px; color: var(--dim); }
+
+    .grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px; margin-top: 44px;
+    }
+    .card {
+      background: linear-gradient(180deg, rgba(25,33,48,.55) 0%, var(--card) 100%);
+      border: 1px solid var(--stroke); border-radius: 10px; padding: 20px;
+    }
+    .card h3 { font-size: 15.5px; font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .dot { width: 8px; height: 8px; border-radius: 2px; display: inline-block; }
+    .card p { font-size: 13.5px; color: var(--muted); }
+
+    .security {
+      margin-top: 42px; padding: 22px 24px; border-radius: 10px;
+      background: rgba(34,197,94,.06); border: 1px solid rgba(34,197,94,.28);
+      display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between;
+    }
+    .security h2 { font-size: 17px; color: var(--green); margin-bottom: 4px; }
+    .security p { color: var(--muted); font-size: 13.5px; max-width: 700px; }
+
+    footer {
+      margin-top: 52px; padding-top: 22px; border-top: 1px solid var(--stroke);
+      font-size: 12px; color: var(--dim); text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="#">
+        <svg viewBox="0 0 108 108" xmlns="http://www.w3.org/2000/svg">
+          <rect width="108" height="108" rx="22" fill="#07090e" />
+          <path d="M28,33 L38.5,33 L54,67.5 L54,79.5 L48.5,79.5 L28,37.5 Z" fill="#FF4655" />
+          <path d="M80,33 L69.5,33 L58.5,57.5 L64,67.5 L80,37.5 Z" fill="#FF4655" />
+          <path d="M54,32.5 L61.5,42 L54,51.5 L46.5,42 Z" fill="#00E5CC" />
+          <path d="M54,38.2 L57,42 L54,45.8 L51,42 Z" fill="#040507" />
+        </svg>
+        MYVAL
+      </a>
+      <div class="nav-links">
+        <a href="https://github.com/Evil-Bane/MyVal/releases">Releases</a>
+        <a href="https://github.com/Evil-Bane/MyVal#zero-middleman-security--fair-play">Security</a>
+        <a href="https://github.com/Evil-Bane/MyVal/issues">Report Bug</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="pill-row">
+        <span class="pill cyan" id="version-pill">v1.0.0 • Latest</span>
+        <span class="pill gold">Native Rust Core + UniFFI</span>
+        <span class="pill green">Zero-Middleman Auth</span>
+      </div>
+      <h1>Tactical <span>Valorant</span> Telemetry.<br/>Built Native in Rust.</h1>
+      <p class="subtitle">
+        Scout all 10 players live in Agent Select &amp; In-Game, detect premade party stacks, inspect equipped skins &amp; last-5 form, scrub 2D kill-by-kill replays, check your Daily Shop &amp; Night Market, and swap skins remotely — all directly from your Android phone.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" id="download-btn" href="https://github.com/Evil-Bane/MyVal/releases/latest">
+          Download Android APK
+        </a>
+        <a class="btn btn-secondary" href="https://github.com/Evil-Bane/MyVal/releases">
+          View All Releases
+        </a>
+      </div>
+      <div class="meta-note" id="release-meta">
+        Android 8.0+ (arm64-v8a) • Signed Release • Built-in Update Notifier
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h3><span class="dot" style="background:var(--red)"></span>Live 10-Player Scout &amp; Stacks</h3>
+        <p>See live Ranks, RR, Peak Rank, and accurate last-5 competitive Win/Loss/Draw dots for every player in Agent Select and Core-Game, with instant Duo/Trio/5-Stack detection.</p>
+      </div>
+      <div class="card">
+        <h3><span class="dot" style="background:var(--gold)"></span>Equipped Skin Inspector</h3>
+        <p>Tap any player card in Pre-Game or Live Match to expand their equipped animated, Premium, Exclusive, and Ultra weapon skins with exact equipped chroma art.</p>
+      </div>
+      <div class="card">
+        <h3><span class="dot" style="background:var(--cyan)"></span>2D Minimap Kill Replay</h3>
+        <p>Replay any match round-by-round on the tactical minimap with live player positions, view cones, spike events, and eliminated agent markers.</p>
+      </div>
+      <div class="card">
+        <h3><span class="dot" style="background:var(--green)"></span>Remote Party &amp; Agent Lock</h3>
+        <p>Toggle Ready, start/stop matchmaking queue, switch modes, hover/lock agents in Agent Select, and share or join party invite codes from your phone.</p>
+      </div>
+      <div class="card">
+        <h3><span class="dot" style="background:#a855f7"></span>Daily Shop, Night Market &amp; Vault</h3>
+        <p>Instant daily offers with live countdown timers, Night Market reveal cards, skin wishlist tracking, and total account Vault VP estimation.</p>
+      </div>
+      <div class="card">
+        <h3><span class="dot" style="background:#60a5fa"></span>Remote Arsenal &amp; Explorer</h3>
+        <p>Swap equipped weapon skins (with real chroma variant art), apply custom presets, 1-tap shuffle, browse skins &amp; agent abilities cleanly, and inspect full map minimaps.</p>
+      </div>
+    </section>
+
+    <section class="security">
+      <div>
+        <h2>100% Local-Only • Zero Middleman Server</h2>
+        <p>Sign-in happens directly on <code>auth.riotgames.com</code>. Tokens are encrypted on-device with Android Keystore AES-256-GCM and never leave your phone. No game files are ever modified.</p>
+      </div>
+      <a class="btn btn-secondary" href="https://obtainium.imranr.dev/" target="_blank" rel="noopener">
+        Track via Obtainium
+      </a>
+    </section>
+
+    <footer>
+      MyVal isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and VALORANT are trademarks or registered trademarks of Riot Games, Inc.
+    </footer>
+  </div>
+
+  <script>
+    (async function hydrateLatestRelease() {
+      try {
+        const res = await fetch('https://api.github.com/repos/Evil-Bane/MyVal/releases/latest', {
+          headers: { 'Accept': 'application/vnd.github+json' }
+        });
+        if (!res.ok) return;
+        const data = await res.json();
+        const tag = data.tag_name || 'v1.0.0';
+        const apk = (data.assets || []).find(a => a.name && a.name.toLowerCase().endsWith('.apk'));
+        const pill = document.getElementById('version-pill');
+        const btn = document.getElementById('download-btn');
+        const meta = document.getElementById('release-meta');
+        pill.textContent = `${tag} • Latest`;
+        if (apk && apk.browser_download_url) {
+          btn.href = apk.browser_download_url;
+          const mb = (apk.size / (1024 * 1024)).toFixed(1);
+          btn.textContent = `Download ${tag} APK (${mb} MB)`;
+          meta.textContent = `${apk.name} • Android 8.0+ (arm64-v8a) • SHA-256 Verified`;
+        }
+      } catch (_) {}
+    })();
+  </script>
+</body>
+</html>
