@@ -1,80 +1,100 @@
-# MyVal — Native Valorant Telemetry & Companion for Android
-
 <p align="center">
-  <img src="https://img.shields.io/github/v/release/Evil-Bane/MyVal?label=Latest%20Release&color=FF4655&style=for-the-badge" alt="Latest Release" />
-  <img src="https://img.shields.io/github/downloads/Evil-Bane/MyVal/total?label=Downloads&color=00E5CC&style=for-the-badge" alt="Downloads" />
-  <img src="https://img.shields.io/badge/Core-Rust%20%2B%20UniFFI-F5C451?style=for-the-badge" alt="Rust Core" />
-  <img src="https://img.shields.io/badge/Android-arm64--v8a%20%7C%20API%2026%2B-22C55E?style=for-the-badge" alt="Android arm64-v8a" />
+  <img src="docs/assets/og-banner.png" alt="MyVal — 2D Kill Replay, Daily Shop and Live Ranks for Valorant" width="100%" />
 </p>
 
-**MyVal** is a pitch-black OLED, zero-middleman Valorant companion for Android powered by a native **Rust telemetry core** (`tokio` + `rusqlite` + `rustls` over UniFFI) and **Jetpack Compose** UI.
+<h1 align="center">MyVal — Your Valorant Sidekick for Android</h1>
 
-> **Website & Direct Download:** [evil-bane.github.io/MyVal](https://evil-bane.github.io/MyVal/) · **Latest APK:** [GitHub Releases](https://github.com/Evil-Bane/MyVal/releases/latest)
+<p align="center">
+  <strong>2D Kill-by-Kill Match Replay • Daily Shop &amp; Vault Value • Live Lobby Ranks &amp; Premade Stacks • Remote Skin Swapper</strong>
+</p>
 
----
+<p align="center">
+  <a href="https://github.com/Evil-Bane/MyVal/releases/latest">
+    <img src="https://img.shields.io/github/v/release/Evil-Bane/MyVal?label=Latest%20Release&color=FF4655&style=for-the-badge" alt="Latest Release" />
+  </a>
+  <a href="https://github.com/Evil-Bane/MyVal/releases">
+    <img src="https://img.shields.io/github/downloads/Evil-Bane/MyVal/total?label=Downloads&color=00E5CC&style=for-the-badge" alt="Downloads" />
+  </a>
+  <img src="https://img.shields.io/badge/Android-8.0%2B%20(arm64)-F5C451?style=for-the-badge" alt="Android 8.0+" />
+  <img src="https://img.shields.io/badge/100%25%20Free-No%20Ads%20%E2%80%A2%20Ban--Safe-22C55E?style=for-the-badge" alt="Free No Ads Ban-Safe" />
+</p>
 
-## Key Features
-
-### Live Match & Agent Select Telemetry
-- **10-Player Live Match Scout (`Core-Game`):** Current rank, RR, Peak rank, **last 5 competitive match outcomes (Win / Loss / Draw)**, account level, and real-time lobby average rank.
-- **Premade Party & Stack Detection:** Automatically detects Duos, Trios, and 5-stacks in both **Agent Select** and **Live Match**, highlighting grouped players with coordinated accent cards and avatar corner badges.
-- **Equipped Skin Inspector:** Tap any player in Agent Select or Live Match to expand their equipped animated, Premium, Exclusive, and Ultra weapon skins (with exact equipped chroma art).
-- **Remote Party Controls:** Toggle Ready, start/cancel queue, switch queues, lock/hover agents remotely in Agent Select, and generate/join party invite codes from your phone.
-
-### Store, Night Market & Vault Value
-- **Daily Shop & Accessories:** Instant live storefront with countdown timers, VP/Radianite/Kingdom Credits wallet bar, and skin wishlist alerts.
-- **Night Market & Collection Vault Value:** Track your total owned skins and estimated account VP value locally.
-
-### Career & 2D Kill-by-Kill Minimap Replay
-- **RR Trend & Agent Stats:** Track your recent competitive RR deltas, win rate, K/D, HS%, ACS, and per-agent breakdown.
-- **Interactive 2D Match Replay:** Scrub through every round's kills on the tactical minimap with live player positions, view cones, spike plant/defuse markers, and eliminated victim indicators.
-- **Global Player Scouting:** Tap any player in a lobby or match scoreboard (or search by Riot ID) to inspect their rank history and match stats.
-
-### Remote Arsenal & Explorer
-- **Equip Skins & 1-Tap Randomizer:** Change your active weapon skins from Android (showing your real equipped chroma variant art), save unlimited custom loadout presets, or shuffle owned skins.
-- **Explore Skins, Agents & Maps:** Search all Valorant skins by weapon tier with wishlist alerts, browse every agent's Q/E/C/X abilities with clean formatting, and inspect full-size tactical map minimaps.
+<p align="center">
+  <a href="https://evil-bane.github.io/MyVal/"><strong>Watch Trailer &amp; Website</strong></a> &nbsp;•&nbsp;
+  <a href="https://github.com/Evil-Bane/MyVal/releases/latest"><strong>Download Free APK</strong></a> &nbsp;•&nbsp;
+  <a href="#100-safe--ban-free"><strong>Is It Safe?</strong></a> &nbsp;•&nbsp;
+  <a href="#install-in-20-seconds"><strong>Install Guide</strong></a>
+</p>
 
 ---
 
-## Architecture
-
-MyVal runs **100% locally on your Android device** with no relay server in between your phone and Riot Games:
-
-```mermaid
-flowchart LR
-    UI["Jetpack Compose OLED UI<br/>(Kotlin • Coil Disk/Memory Cache)"] -->|UniFFI Native Bridge| Core["Native Rust Engine (arm64-v8a)<br/>tokio Async • rusqlite WAL Cache"]
-    Core -->|Direct TLS| Riot["Riot Games Official Endpoints<br/>(auth.riotgames.com • PD • GLZ)"]
-    Core -->|Static Assets| ValApi["valorant-api.com<br/>(Skins • Agents • Maps • Ranks)"]
-    UI -->|Hardware AES-256-GCM| Keystore["Android Keystore<br/>(Encrypted Local Session Vault)"]
-```
+**Stop alt-tabbing out of ranked and stop booting your whole PC just to check your Daily Shop.**
+**MyVal** gives Valorant players an unfair-feeling (100% legal) mobile companion — starting with **mobile 2D Kill-by-Kill Match Replays** you won't find in any other companion app.
 
 ---
 
-## Install & Auto-Updates
+## Screenshots
 
-### Option 1 — Direct APK Download (Fastest)
-1. Download the latest `MyVal-vX.Y.Z-arm64-v8a.apk` from [**GitHub Releases**](https://github.com/Evil-Bane/MyVal/releases/latest).
-2. Verify the SHA-256 checksum against `SHA256SUMS.txt` (optional).
-3. Tap the APK to install.
-4. **Built-in Update Popup:** MyVal automatically checks this repository for new signed releases and lets you download updates in 1 tap.
+| 2D Kill-by-Kill Replay | Daily Shop &amp; Vault Value | Live Lobby Ranks |
+| :---: | :---: | :---: |
+| <img src="docs/assets/shot-replay.png" width="230" alt="2D Kill Replay Minimap" /> | <img src="docs/assets/shot-store.png" width="230" alt="Daily Shop and Vault Value" /> | <img src="docs/assets/shot-live.png" width="230" alt="Live Match and Home Rank Hub" /> |
+| **Remote Skin Swapper** | **RR Graph &amp; Career Stats** | **Agent Abilities &amp; Maps** |
+| <img src="docs/assets/shot-arsenal.png" width="230" alt="Remote Arsenal Skin Swapper" /> | <img src="docs/assets/shot-career.png" width="230" alt="Career RR History Graph" /> | <img src="docs/assets/shot-agents.png" width="230" alt="Agent Q E C X Ability Guide" /> |
 
-### Option 2 — Automatic Background Updates via Obtainium
+---
+
+## Why Valorant Players Love MyVal
+
+### 1. 2D Kill-by-Kill Minimap Replay (Mobile Exclusive)
+- **Relive Every Clutch Round:** Scrub through every kill, Spike plant, defuse, and player rotation right on the tactical minimap with live killer/victim highlights and sight cones.
+- **Instant Breakdown:** Jump straight to any round (`R1`, `R2`, ...) or event chip (`K1`, `PLANT A`, `DEFUSE`) and tap any player on the scoreboard to inspect their rank history.
+
+### 2. Daily Shop, Night Market &amp; Account Value — From Bed
+- **Skip Turning On Your PC:** Check all 4 Daily Store offers, live reset timer, and Night Market cards straight from your phone.
+- **Total Vault Value &amp; Wishlist:** Track how many skins you own, see your estimated account VP / dollar value, and star skins for your wishlist.
+
+### 3. Live Lobby Rank Scout &amp; Premade Stack Detector
+- **Know Who You're Fighting Before Round 1:** View current Rank, RR, Peak Rank, and **last 5 competitive match dots (Win / Loss / Draw)** for all 10 players in Agent Select and In-Game.
+- **Spot Stacks &amp; Skins Instantly:** Automatically detects **Duos, Trios, and 5-Stacks** on both teams, and lets you tap any player to see their equipped weapon skins.
+- **Control Your Party &amp; Instalock:** Toggle Ready, queue up, switch modes, hover/lock your Agent in Agent Select, and share or join party invite codes right from Android.
+
+### 4. Remote Skin Swapper, Presets &amp; Explorer
+- **Swap Skins Anywhere:** Change equipped weapon skins remotely with real chroma variant art, save unlimited custom loadout presets, or hit **Randomize** in 1 tap.
+- **Global Player Lookup, Skins, Agents &amp; Maps:** Search any Riot ID, filter every weapon skin, browse every Agent's `Q`/`E`/`C`/`X` abilities cleanly, and inspect full-size map callouts &amp; minimaps.
+
+---
+
+## 100% Safe &amp; Ban-Free
+
+- **Never Touches PC Game Files or Vanguard:** MyVal runs only on your Android phone. It never modifies files, overlays, or game memory on your PC.
+- **Direct Riot Login — No Sketchy Third-Party Servers:** You log in directly on Riot Games' official `auth.riotgames.com` page inside the app. Your login tokens stay encrypted on your phone and are never sent to any relay server.
+- **100% Free Forever • Zero Ads:** Built by a Valorant player for Valorant players. No subscriptions, no paywalls, no pop-up ads.
+
+---
+
+## Install in 20 Seconds
+
+### Option 1 — Direct APK Download (Recommended)
+1. Download `MyVal-v1.0.0-arm64-v8a.apk` from [**Latest Releases**](https://github.com/Evil-Bane/MyVal/releases/latest) (or via [evil-bane.github.io/MyVal](https://evil-bane.github.io/MyVal/)).
+2. Tap the downloaded APK on Android to install.
+3. **1-Tap Auto-Update Popups:** MyVal automatically checks for new updates and lets you download them right inside the app.
+
+### Option 2 — Track Updates Automatically with Obtainium
 1. Install [**Obtainium**](https://obtainium.imranr.dev/) on Android.
-2. Add App Source URL: `https://github.com/Evil-Bane/MyVal`
-3. Obtainium will automatically track and install every signed release.
+2. Tap **Add App** and paste: `https://github.com/Evil-Bane/MyVal`
+3. Obtainium keeps MyVal updated whenever a new release drops.
 
-> **Compatibility:** Android 8.0+ (`minSdk 26`), 64-bit ARM (`arm64-v8a`, ~99% of modern Android phones).
+> **Compatibility:** Android 8.0+ (`arm64-v8a` — works on ~99% of modern Android phones).
 
----
+<details>
+<summary>Verify Download Checksum (Optional Security Check)</summary>
 
-## Zero-Middleman Security & Fair Play
+Official releases include `SHA256SUMS.txt` and are signed by `CN=MyVal, OU=Mobile, O=Evil-Bane, C=IN` (`c855b36e0120095bc5ae81f8c7d65724e35775b7b8f4e0ce7c17cc6e959dd16d`). See [SECURITY.md](SECURITY.md) for verification commands.
 
-- **No Middleman Backend:** Your Riot RSO sign-in occurs directly inside Riot's official `auth.riotgames.com` login page. Session tokens are encrypted locally with hardware-backed **AES-256-GCM** in Android Keystore and are never transmitted to any third-party server.
-- **Read-Only Telemetry & Standard Companion Actions:** MyVal never touches, patches, injects, or modifies Valorant game files or Vanguard.
-- See [SECURITY.md](SECURITY.md) for checksum verification and responsible disclosure.
+</details>
 
 ---
 
 ## Legal Disclaimer
 
-MyVal isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties (including VALORANT) are trademarks or registered trademarks of Riot Games, Inc.
+MyVal isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and VALORANT are trademarks or registered trademarks of Riot Games, Inc.
