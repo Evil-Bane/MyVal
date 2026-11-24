@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Dark obsidian inner shield shadow for depth -->
+    <path
+        android:fillColor="#99040507"
+        android:pathData="M54,23 L82,36 L77,67 L54,84 L31,67 L26,36 Z" />
+
+    <!-- Crisp left crimson angular wing (forged tactical V-left) -->
+    <path android:pathData="M28,33 L38.5,33 L54,67.5 L54,79.5 L48.5,79.5 L28,37.5 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="54"
+                android:endY="79.5"
+                android:startX="28"
+                android:startY="33"
+                android:type="linear">
+                <item android:color="#FFFF5C6A" android:offset="0.0" />
+                <item android:color="#FFFF4655" android:offset="0.55" />
+                <item android:color="#FFD62B3A" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Crisp right crimson angular wing (forged tactical V-right) -->
+    <path android:pathData="M80,33 L69.5,33 L58.5,57.5 L64,67.5 L80,37.5 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="58.5"
+                android:endY="67.5"
+                android:startX="80"
+                android:startY="33"
+                android:type="linear">
+                <item android:color="#FFFF6470" android:offset="0.0" />
+                <item android:color="#FFFF4655" android:offset="0.6" />
+                <item android:color="#FFC92332" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Sharp white-tinted top specular edge on left & right wings -->
+    <path
+        android:fillColor="#40FFFFFF"
+        android:pathData="M28,33 L38.5,33 L39.5,35.2 L29.2,35.2 Z M69.5,33 L80,33 L78.8,35.2 L68.5,35.2 Z" />
+
+    <!-- Electric cyan tactical telemetry reticle diamond in the V cradle -->
+    <path android:pathData="M54,32.5 L61.5,42 L54,51.5 L46.5,42 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="54"
+                android:endY="51.5"
+                android:startX="54"
+                android:startY="32.5"
+                android:type="linear">
+                <item android:color="#FF67FFF0" android:offset="0.0" />
+                <item android:color="#FF00E5CC" android:offset="0.65" />
+                <item android:color="#FF00B8A3" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Inner dark obsidian reticle core cutout -->
+    <path
+        android:fillColor="#FF040507"
+        android:pathData="M54,38.2 L57,42 L54,45.8 L51,42 Z" />
+
+    <!-- Precision crosshair pips -->
+    <path
+        android:fillColor="#FF00E5CC"
+        android:pathData="M53.1,27 L54.9,27 L54.9,30.5 L53.1,30.5 Z M41,41.1 L44.5,41.1 L44.5,42.9 L41,42.9 Z M63.5,41.1 L67,41.1 L67,42.9 L63.5,42.9 Z" />
+</vector>

@@ -1,0 +1,18 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/myval-core",
+    "crates/myval-ffi",
+    "crates/myval-cli",
+]
+
+[workspace.package]
+version = "1.0.0"
+edition = "2021"
+license = "GPL-3.0-only"
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+strip = "symbols"

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyVal — 2D Match Replay, Daily Shop &amp; Live Ranks for Valorant (Android)</title>
+  <meta name="description" content="Free Valorant companion for Android. Watch 2D kill-by-kill minimap replays with weapon/ability icons &amp; filtered heatmaps, check your Daily Shop from bed, scout verified live lobby stacks, and swap skins remotely." />
+
+  <!-- OpenGraph / Discord / Reddit / WhatsApp Preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://evil-bane.github.io/MyVal/" />
+  <meta property="og:title" content="MyVal — Free Valorant Companion for Android" />
+  <meta property="og:description" content="2D Minimap Replays &amp; Filtered Heatmaps, Daily Shop &amp; Vault Value, Verified Live Ranks &amp; Premade Stacks, and Remote Skin Swapper. 100% Free • Zero Ads • Open Source." />
+  <meta property="og:image" content="https://evil-bane.github.io/MyVal/assets/og-banner.png" />
+
+  <!-- Twitter / X Large Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="MyVal — 2D Replay, Heatmaps, Daily Shop &amp; Live Ranks" />
+  <meta name="twitter:description" content="Relive every clutch round in 2D with weapon kill icons &amp; tactical heatmaps, check your Daily Shop from bed, and spot premade stacks before Round 1. Free on Android." />
+  <meta name="twitter:image" content="https://evil-bane.github.io/MyVal/assets/og-banner.png" />
+
+  <style>
+    :root {
+      --bg: #040507;
+      --card: #0a0d12;
+      --elevated: #121822;
+      --stroke: #202a38;
+      --red: #ff4655;
+      --cyan: #00e5cc;
+      --gold: #f5c451;
+      --green: #22c55e;
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --dim: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background:
+        radial-gradient(ellipse 80% 50% at 15% 0%, rgba(255, 70, 85, 0.14), transparent 60%),
+        radial-gradient(ellipse 70% 50% at 85% 15%, rgba(0, 229, 204, 0.11), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 24px 20px 72px; }
+
+    nav {
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      padding-bottom: 20px; border-bottom: 1px solid var(--stroke);
+    }
+    .brand {
+      display: flex; align-items: center; gap: 12px;
+      font-weight: 900; letter-spacing: 2.5px; font-size: 20px; color: #fff; text-decoration: none;
+    }
+    .brand svg { width: 36px; height: 36px; border-radius: 9px; }
+    .nav-links { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 600; transition: color .15s; }
+    .nav-links a:hover { color: var(--cyan); }
+
+    .hero { text-align: center; padding: 54px 8px 36px; }
+    .pill-row { display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 22px; }
+    .pill {
+      font-size: 11.5px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 7px; border: 1px solid var(--stroke); background: var(--elevated);
+    }
+    .pill.cyan { color: var(--cyan); border-color: rgba(0,229,204,.45); background: rgba(0,229,204,.10); }
+    .pill.gold { color: var(--gold); border-color: rgba(245,196,81,.45); background: rgba(245,196,81,.10); }
+    .pill.green { color: var(--green); border-color: rgba(34,197,94,.45); background: rgba(34,197,94,.10); }
+
+    h1 {
+      font-size: clamp(34px, 5.8vw, 60px); font-weight: 900; letter-spacing: -0.025em;
+      line-height: 1.06; margin-bottom: 18px;
+    }
+    h1 span { color: var(--red); }
+    .subtitle { max-width: 720px; margin: 0 auto 28px; color: var(--muted); font-size: 17.5px; }
+
+    .cta-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 14px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 26px;
+      border-radius: 10px; font-weight: 800; font-size: 15.5px; text-decoration: none; transition: transform .15s, opacity .15s;
+    }
+    .btn:hover { transform: translateY(-2px); opacity: .96; }
+    .btn-primary {
+      background: linear-gradient(135deg, #ff5664, #ff4655);
+      color: #fff; box-shadow: 0 10px 32px rgba(255,70,85,.32);
+    }
+    .btn-secondary { background: var(--elevated); color: var(--text); border: 1px solid var(--stroke); }
+    .meta-note { font-size: 13px; color: var(--dim); }
+
+    /* Embedded 3D Launch Trailer Showcase */
+    .trailer-shell {
+      max-width: 920px; margin: 38px auto 0;
+      border-radius: 14px; padding: 8px;
+      background: linear-gradient(135deg, rgba(255,70,85,.45), rgba(0,229,204,.35), rgba(32,42,56,.9));
+      box-shadow: 0 24px 64px rgba(0,0,0,.75);
+    }
+    .trailer-inner {
+      border-radius: 10px; overflow: hidden; background: #000; position: relative;
+    }
+    .trailer-inner video {
+      width: 100%; display: block; aspect-ratio: 16 / 9; background: #040507;
+    }
+
+    .section-head { text-align: center; margin: 64px 0 26px; }
+    .section-head h2 { font-size: clamp(26px, 3.6vw, 36px); font-weight: 900; margin-bottom: 8px; }
+    .section-head p { color: var(--dim); font-size: 15.5px; max-width: 640px; margin: 0 auto; }
+
+    /* Real App Screenshots Carousel / Grid */
+    .shots-row {
+      display: flex; gap: 18px; overflow-x: auto; padding: 8px 4px 18px;
+      scroll-snap-type: x mandatory;
+    }
+    .shots-row::-webkit-scrollbar { height: 7px; }
+    .shots-row::-webkit-scrollbar-thumb { background: var(--stroke); border-radius: 99px; }
+    .shot-card {
+      flex: 0 0 245px; scroll-snap-align: start;
+      background: var(--card); border: 1px solid var(--stroke); border-radius: 14px; padding: 14px 14px 16px;
+      text-align: center; transition: border-color .15s, transform .15s;
+    }
+    .shot-card:hover { border-color: var(--cyan); transform: translateY(-3px); }
+    .shot-card img { width: 100%; height: auto; display: block; border-radius: 8px; }
+    .shot-card h4 { font-size: 14.5px; font-weight: 800; margin-top: 12px; color: #fff; }
+    .shot-card p { font-size: 12.5px; color: var(--dim); margin-top: 3px; }
+
+    /* Feature Cards */
+    .grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: linear-gradient(180deg, rgba(22,30,44,.65) 0%, var(--card) 100%);
+      border: 1px solid var(--stroke); border-radius: 12px; padding: 22px;
+    }
+    .card h3 { font-size: 16.5px; font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; gap: 9px; }
+    .dot { width: 9px; height: 9px; border-radius: 2px; display: inline-block; flex-shrink: 0; }
+    .card p { font-size: 14px; color: var(--muted); }
+
+    /* Trust / Anti-Ban Banner */
+    .trust {
+      margin-top: 48px; padding: 26px 28px; border-radius: 12px;
+      background: rgba(34,197,94,.07); border: 1px solid rgba(34,197,94,.32);
+      display: flex; flex-wrap: wrap; gap: 18px; align-items: center; justify-content: space-between;
+    }
+    .trust h2 { font-size: 20px; color: var(--green); margin-bottom: 6px; }
+    .trust p { color: var(--muted); font-size: 14.5px; max-width: 720px; }
+
+    /* FAQ */
+    .faq { max-width: 820px; margin: 52px auto 0; display: flex; flex-direction: column; gap: 10px; }
+    .faq details {
+      background: var(--card); border: 1px solid var(--stroke); border-radius: 10px; padding: 15px 18px;
+    }
+    .faq summary { font-weight: 700; font-size: 15px; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+    .faq summary::after { content: "+"; color: var(--cyan); font-size: 19px; font-weight: 800; }
+    .faq details[open] summary::after { content: "−"; color: var(--red); }
+    .faq p { margin-top: 10px; font-size: 14px; color: var(--muted); }
+
+    footer {
+      margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--stroke);
+      font-size: 12.5px; color: var(--dim); text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="#">
+        <svg viewBox="0 0 108 108" xmlns="http://www.w3.org/2000/svg">
+          <rect width="108" height="108" rx="22" fill="#07090e" />
+          <path d="M28,33 L38.5,33 L54,67.5 L54,79.5 L48.5,79.5 L28,37.5 Z" fill="#FF4655" />
+          <path d="M80,33 L69.5,33 L58.5,57.5 L64,67.5 L80,37.5 Z" fill="#FF4655" />
+          <path d="M54,32.5 L61.5,42 L54,51.5 L46.5,42 Z" fill="#00E5CC" />
+          <path d="M54,38.2 L57,42 L54,45.8 L51,42 Z" fill="#040507" />
+        </svg>
+        MYVAL
+      </a>
+      <div class="nav-links">
+        <a href="#screenshots">Screenshots</a>
+        <a href="#features">Features</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://github.com/Evil-Bane/MyVal">GitHub</a>
+        <a href="https://github.com/Evil-Bane/MyVal/releases">Releases</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="pill-row">
+        <span class="pill cyan" id="version-pill">v1.0.6 • Free APK</span>
+        <span class="pill gold">2D Replay, Heatmaps &amp; Daily Shop</span>
+        <span class="pill green">Open Source • Zero Unfair Advantage</span>
+        <span class="pill" id="downloads-pill" style="color:var(--red); border-color:rgba(255,70,85,.45); background:rgba(255,70,85,.10);">31+ APK Downloads</span>
+      </div>
+      <h1>2D Match Replay. Daily Shop.<br/><span>Live Lobby Ranks.</span></h1>
+      <p class="subtitle">
+        The first Valorant companion on Android with <strong>interactive 2D minimap replays, weapon &amp; ability kill icons, and filtered tactical heatmaps</strong> — plus Daily Shop &amp; Vault tracking, verified live lobby ranks &amp; premade stacks, 15s fair-play Agent Hover &amp; Lock (anti-instalock), and 1-tap skin swapping.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" id="download-btn" href="https://github.com/Evil-Bane/MyVal/releases/latest">
+          Download Free for Android
+        </a>
+        <a class="btn btn-secondary" id="releases-btn" href="https://github.com/Evil-Bane/MyVal/releases/latest">
+          Open GitHub Releases
+        </a>
+      </div>
+      <div class="meta-note" id="release-meta">
+        Android 8.0+ (arm64) • 100% Free • Zero Ads • Native Rust + Jetpack Compose
+      </div>
+
+      <div class="trailer-shell">
+        <div class="trailer-inner">
+          <video controls autoplay muted loop playsinline poster="assets/og-banner.png" preload="metadata">
+            <source src="assets/myval-trailer.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <section id="screenshots">
+      <div class="section-head">
+        <h2>Inside MyVal on Android</h2>
+        <p>Privacy-clean screenshots straight from the app — swipe to explore every screen.</p>
+      </div>
+      <div class="shots-row">
+        <div class="shot-card">
+          <img src="assets/shot-replay.png" alt="2D Kill Replay Screen" loading="lazy" />
+          <h4>2D Kill-by-Kill Replay</h4>
+          <p>Gun/ability kill icons, FB/TRD badges &amp; 0.7x–2x playback</p>
+        </div>
+        <div class="shot-card">
+          <img src="assets/shot-heatmap.png" alt="Filtered Tactical Heatmap Screen" loading="lazy" />
+          <h4>Tactical Heatmaps &amp; Duels</h4>
+          <p>Filter Kills, Deaths, FBs &amp; Plants by half or player</p>
+        </div>
+        <div class="shot-card">
+          <img src="assets/shot-store.png" alt="Daily Shop Screen" loading="lazy" />
+          <h4>Daily Shop &amp; Vault</h4>
+          <p>Check 4 daily offers, Night Market &amp; pull-to-refresh</p>
+        </div>
+        <div class="shot-card">
+          <img src="assets/shot-live.png" alt="Live Match Hub Screen" loading="lazy" />
+          <h4>Live Match &amp; Ranks Hub</h4>
+          <p>Verified stacks, competitive last-5 form &amp; party controls</p>
+        </div>
+        <div class="shot-card">
+          <img src="assets/shot-arsenal.png" alt="Remote Arsenal Screen" loading="lazy" />
+          <h4>Remote Skin Swapper</h4>
+          <p>Change equipped skins, chromas &amp; 1-tap randomize</p>
+        </div>
+        <div class="shot-card">
+          <img src="assets/shot-career.png" alt="Career RR History Screen" loading="lazy" />
+          <h4>RR Trend &amp; Career</h4>
+          <p>Track RR swings, win rate, missions &amp; playtime</p>
+        </div>
+        <div class="shot-card">
+          <img src="assets/shot-agents.png" alt="Agent Guide Screen" loading="lazy" />
+          <h4>Agents, Skins &amp; Maps</h4>
+          <p>Browse Q/E/C/X abilities, skin tiers &amp; callouts</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="section-head">
+        <h2>Everything You Normally Alt-Tab For — On Your Phone</h2>
+        <p>Built cleanly around what Valorant players actually open between rounds and from bed.</p>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h3><span class="dot" style="background:var(--cyan)"></span>2D Replay &amp; Tactical Heatmaps</h3>
+          <p>Watch rounds unfold at 0.7x/1x/2x speed with real weapon &amp; ability kill icons, FB/TRD tags, DUEL scoreboard records, and filterable Kills / Deaths / First Blood / Plant heatmaps.</p>
+        </div>
+        <div class="card">
+          <h3><span class="dot" style="background:var(--gold)"></span>Daily Shop, Night Market &amp; Vault</h3>
+          <p>Check today's 4 store offers, live countdown timers, Night Market deals, skin wishlist notifications, and your account's estimated inventory value.</p>
+        </div>
+        <div class="card">
+          <h3><span class="dot" style="background:var(--red)"></span>Verified Stacks &amp; Live Ranks</h3>
+          <p>See every teammate and enemy's Rank, RR, Peak Rank, and strictly competitive last-5 Win/Loss dots — backed by live party &amp; match-details stack verification.</p>
+        </div>
+        <div class="card">
+          <h3><span class="dot" style="background:var(--green)"></span>Fair-Play Party, Hover &amp; Agent Lock</h3>
+          <p>Ready up, start or cancel queue, switch modes, or hover &amp; lock an agent after an explicit 15-second fair-play wait — strictly disabling instapicking and instalocking for any unfair advantage.</p>
+        </div>
+        <div class="card">
+          <h3><span class="dot" style="background:#a855f7"></span>Remote Skin Swapper &amp; Presets</h3>
+          <p>Swap equipped weapon skins and chroma variants remotely, save custom loadout presets, or shuffle owned skins with 1 tap.</p>
+        </div>
+        <div class="card">
+          <h3><span class="dot" style="background:#60a5fa"></span>Blazing-Fast Modern UI</h3>
+          <p>Powered by a native Rust core and Jetpack Compose UI — buttery 60fps minimap playback, smooth pull-to-refresh gestures, offline Explorer, and seamless 1-tap in-app updates.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust">
+      <div>
+        <h2>100% Free • Zero Ads • Open Source (GPL-3.0)</h2>
+        <p>Every line of Rust &amp; Kotlin source is public on GitHub. MyVal runs strictly on Android with zero PC files, overlays, or Vanguard hooks — sign-in happens directly on Riot Games' official page and stays encrypted in Android Keystore.</p>
+      </div>
+      <a class="btn btn-secondary" href="https://github.com/Evil-Bane/MyVal" target="_blank" rel="noopener">
+        Inspect Source on GitHub
+      </a>
+    </section>
+
+    <section class="faq" id="faq">
+      <div class="section-head" style="margin-top:16px;">
+        <h2>Quick Answers</h2>
+      </div>
+      <details open>
+        <summary>Can a user get banned for using MyVal?</summary>
+        <p><strong>Not happened to anyone we know.</strong> The developer also spoke directly with a Riot developer regarding companion apps — their verdict was that Riot generally does not mind third-party tools unless an automation, app, tool, or script gives a player any competitive advantage. MyVal never alters PC files, never injects overlays, and never automates gameplay; however, because it uses Riot companion endpoints rather than an official Riot Production API key, we never claim a 100% ban-safe guarantee.</p>
+      </details>
+      <details>
+        <summary>Is my Riot login safe?</summary>
+        <p>Yes. You sign in directly on Riot Games' official <code>auth.riotgames.com</code> login page. Your session stays encrypted on your own phone using Android Keystore security — it is never uploaded to any third-party backend.</p>
+      </details>
+      <details>
+        <summary>How does 2D Match Replay work?</summary>
+        <p>Tap any match in your Career or Last Match card to open the round-by-round 2D Replay. Scrub through rounds and kill timestamps to see exactly where every player was on the minimap when each kill, plant, or defuse happened.</p>
+      </details>
+      <details>
+        <summary>Privacy Policy &amp; Terms of Use (Zero Data Stored)</summary>
+        <p>We store nothing on any server — zero analytics, zero trackers, and zero credential relays. Nobody forces login; you voluntarily authenticate directly inside Riot Games' official login page on your phone, keeping session tokens strictly inside Android Keystore. Full terms &amp; fair-play pledge: <a href="https://github.com/Evil-Bane/MyVal/blob/main/PRIVACY.md" style="color:var(--cyan);">PRIVACY.md</a>.</p>
+      </details>
+      <details>
+        <summary>How do I get future updates?</summary>
+        <p>MyVal checks for new releases automatically, downloads updates seamlessly inside the app, and opens Android's installer in 1 tap. You can also track <code>https://github.com/Evil-Bane/MyVal</code> in Obtainium.</p>
+      </details>
+    </section>
+
+    <footer>
+      MyVal isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and VALORANT are trademarks or registered trademarks of Riot Games, Inc.
+    </footer>
+  </div>
+
+  <script>
+    (async function hydrateLatestRelease() {
+      try {
+        const res = await fetch('https://api.github.com/repos/Evil-Bane/MyVal/releases?per_page=100', {
+          headers: { 'Accept': 'application/vnd.github+json' }
+        });
+        if (!res.ok) return;
+        const releases = await res.json();
+        if (!Array.isArray(releases) || releases.length === 0) return;
+
+        let apkDownloads = 0;
+        let totalDownloads = 0;
+        for (const r of releases) {
+          for (const a of (r.assets || [])) {
+            const cnt = Number(a.download_count) || 0;
+            totalDownloads += cnt;
+            if (a.name && a.name.toLowerCase().endsWith('.apk')) {
+              apkDownloads += cnt;
+            }
+          }
+        }
+        const dlPill = document.getElementById('downloads-pill');
+        if (dlPill && totalDownloads > 0) {
+          dlPill.textContent = `${apkDownloads.toLocaleString()} APK Downloads (${totalDownloads.toLocaleString()} Total)`;
+        }
+
+        const data = releases.find(r => !r.draft && !r.prerelease) || releases[0];
+        const tag = data.tag_name || 'v1.0.6';
+        const apk = (data.assets || []).find(a => a.name && a.name.toLowerCase().endsWith('.apk'));
+        const pill = document.getElementById('version-pill');
+        const btn = document.getElementById('download-btn');
+        const relBtn = document.getElementById('releases-btn');
+        const meta = document.getElementById('release-meta');
+        pill.textContent = `${tag} • Latest`;
+        if (relBtn && data.html_url) {
+          relBtn.href = data.html_url;
+        }
+        if (apk && apk.browser_download_url) {
+          btn.href = apk.browser_download_url;
+          const mb = (apk.size / (1024 * 1024)).toFixed(1);
+          btn.textContent = `Download ${tag} APK (${mb} MB)`;
+          meta.textContent = `${apk.name} • Android 8.0+ (arm64) • ${apkDownloads.toLocaleString()} APK downloads across ${releases.length} releases`;
+        }
+      } catch (_) {}
+    })();
+  </script>
+</body>
+</html>
